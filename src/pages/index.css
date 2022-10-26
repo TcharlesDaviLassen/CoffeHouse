@@ -1,0 +1,15 @@
+body {
+color: aqua;
+font-size: 20px;
+text-decoration: none;
+width: 10rem;
+background-size: 6rem;
+height: 3rem;
+text-align: center;
+
+background-color: rgba(238, 231, 228, 0.884);
+height: 10rem;
+border-radius: 10px;
+text-align: center;
+padding-top: 30%;
+}
