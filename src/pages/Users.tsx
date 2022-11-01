@@ -1,44 +1,16 @@
-// import { useContext } from "react";
-// import { AuthContext } from "../contexts/AuthContext";
-
-
-// import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material';
-// import { Box } from '@mui/system';
-
-// import { NameUser, UserIcon, LoginBody, IconBack } from "./Users.styles";
-
-// export function Users() {
-//     const { user } = useContext(AuthContext);
-
-//     return (
-//         <>
-//             <LoginBody>
-//                 <div>
-//                     <a href="/">
-//                         <IconBack src="./src/imgs/goBack.png" alt="Image Back"></IconBack>
-//                     </a>
-
-//                     <div>
-//                         <UserIcon src="./src/imgs/user.png" alt=""></UserIcon>
-//                         <NameUser>{user?.name}</NameUser>
-//                     </div>
-//                 </div>
-
-//             </LoginBody>
-//         </>
-//     )
-// }
-
-import { Header } from "../components/Header";
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { UserModal, User } from "../components/modais/UserModal";
-import { MainContainer } from "./Users.styles";
+
+import { Header } from "../components/Header";
 import { Button } from "../components/Button";
+import { UserModal, User } from "../components/modais/UserModal";
 import { Card } from "../components/UserCards/Card";
+import { MainContainer } from "./Users.styles";
+import { ButtonType, TagA, UserBody, DivBody } from "./Users.styles";
+
+import { Environment } from "../components/modais/Auth/AxiosConnect";
 
 export function Users() {
   const MySwal = withReactContent(Swal);
@@ -46,30 +18,45 @@ export function Users() {
   const [closeModal, setCloseModal] = useState(false);
 
   useEffect(() => {
-    axios.get<User[]>("http://localhost:3000/users").then((response) => {
+    axios.get<User[]>(`${Environment.URL_BASE}/users`).then((response) => {
       setUserList(response.data);
     });
   }, [closeModal]);
 
   const showSwal = () => {
     MySwal.fire({
-      title: <strong>Criar usuário</strong>,
+      title: <strong>Create user</strong>,
       html: <UserModal closeModal={MySwal.close} />,
       showConfirmButton: false,
     }).then(() => setCloseModal(true));
   };
 
   return (
-    <div>
-      
-      <Header label="Usuários" />
+      <UserBody>
 
-      <MainContainer>
-        <Button label="Criar Usuário" onClick={showSwal} />
-        {userList.map((user) => {
-          return <Card data={user} />;
-        })}
-      </MainContainer>
-    </div>
+        <Header label="Users" />
+
+        <MainContainer>
+        {/* <DivBody> */}
+          <Button label="Create Users" onClick={showSwal} />
+
+          {userList.map((user) => {
+            return <Card data={user} />;
+          })}
+
+          <div>
+            <TagA href="http://localhost:3004/users/pdf" target="_BLANK">
+              <ButtonType>Export PDF</ButtonType>
+            </TagA>
+
+            <TagA href="http://localhost:3004/users/csv" target="_BLANK">
+              <ButtonType>Export CSV</ButtonType>
+            </TagA>
+          </div>
+
+        {/* </DivBody> */}
+
+        </MainContainer>
+      </UserBody>
   );
 }

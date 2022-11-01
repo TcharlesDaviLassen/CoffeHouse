@@ -50,7 +50,7 @@ export function Login() {
     const login = await signIn(data);
     console.log(login)
     if (login) {
-      navigate("/home");
+      navigate("/menu");
     } else {
       setErrorLogin("Login e/ou senha incorreto(s)");
     }

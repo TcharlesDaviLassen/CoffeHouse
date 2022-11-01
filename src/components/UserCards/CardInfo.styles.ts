@@ -4,6 +4,7 @@ export const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+
 `;
 
 export const Title = styled.div`
@@ -12,8 +13,13 @@ export const Title = styled.div`
   color: var(--gray-300);
   line-height: 22px;
   text-transform: uppercase;
+  margin-left: 30px; 
+
+  
 `;
 
 export const Data = styled.div`
   color: var(--gray-800);
+  margin-left: 30px; 
+
 `;

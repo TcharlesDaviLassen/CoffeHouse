@@ -1,14 +1,16 @@
+import { FormProvider, useForm } from "react-hook-form";
 import { FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "../Button";
-import { DivContainer, ItemsFormContainer } from "./UserModal.styles";
-import { FormProvider, useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import { Input } from "../Input";
+import { Button } from "../Button";
+import { Environment } from "./Auth/AxiosConnect";
+import { DivContainer, ItemsFormContainer } from "./UserModal.styles";
 
 interface UserModalProps {
   closeModal: Function;
@@ -19,9 +21,9 @@ const newUserValidationSchema = zod.object({
   name: zod.string().min(1, "Informe um nome válido"),
   email: zod
     .string()
-    .min(1, "Informe a sua senha")
-    .email("Informe um e-mail válido"),
-  password: zod.string().min(5, "Sua senha deve conter 5 digitos"),
+    .min(1, "Informe a sua senha"),
+  // .email("Informe um e-mail válido"),
+  password: zod.string().min(3, "Sua senha deve conter 3 digitos"),
   age: zod.any(),
   sex: zod.string(),
 });
@@ -53,47 +55,62 @@ export function UserModal({ closeModal, userData }: UserModalProps) {
 
   useEffect(() => {
     if (userData) {
-      setValue("name", userData.name);
+      const name = userData.name.toUpperCase();
+      const genero = userData.sex.toUpperCase();
+      setValue("name", name);
       setValue("email", userData.email);
       setValue("password", userData.password);
       setValue("age", userData.age);
-      setValue("sex", userData.sex);
+      setValue("sex", genero);
     }
   }, [userData]);
 
   const { errors } = formState;
 
   async function handleCrateNewUser(data: User) {
+    console.log(data)
     console.log("acessou");
+
     try {
+      console.log("userData");
       console.log(userData);
+
       if (userData) {
         console.log("acessou");
-        await axios.put(`http://localhost:3333/users/${userData.id}`, {
-          name: data.name,
+        console.log(data)
+
+        const nameUpper = data.name.toUpperCase();
+        const genero = data.sex.toUpperCase();
+        await axios.put(`${Environment.URL_BASE}/users/${userData.id}`, {
+          name: nameUpper,
           email: data.email,
           password: data.password,
           age: data.age,
-          sex: data.sex,
+          sex: genero,
         });
 
+        closeModal();
         toast.success("Usuário Editado com sucesso");
+        // console.log("Page initial is" + window.location.pathname);
+
       } else {
-        await axios.post("http://localhost:3333/users", {
-          name: data.name,
+        const nameUpper = data.name.toUpperCase();
+        const genero = data.sex.toUpperCase();
+        await axios.post(`${Environment.URL_BASE}/users`, {
+          name: nameUpper,
           email: data.email,
           password: data.password,
           age: data.age,
-          sex: data.sex,
+          sex: genero,
         });
 
         toast.success("Usuário Criado com sucesso");
+        closeModal();
       }
-
-      closeModal();
     } catch (error) {
       toast.error("Erro ao criar usuário");
     }
+
   }
 
   return (

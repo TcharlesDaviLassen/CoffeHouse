@@ -12,16 +12,18 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<PrivateRoute />}>
+
         <Route path="/" element={<Menu />} />
+        <Route path="/menu" element={<Menu />} />
         
-        <Route path="/Users" element={<Users />} />
-        <Route path="/Providers" element={<Providers />} />
-        
+        <Route path="/users" element={<Users />} />
+        <Route path="/providers" element={<Providers />} />
+
       </Route>
 
       <Route
-        path="/login"
-        element={isAuthenticated ? <Navigate to="/" /> : <Login />}
+        path="login"
+        element={isAuthenticated ? <Navigate to="login" /> : <Login />}
       />
 
       <Route path="*" element={<Navigate to="/" />} />

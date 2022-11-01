@@ -11,7 +11,7 @@ interface ButtonProps {
 }
 
 export function Button({
-  variant = "primary",
+  variant = "success",
   width = 416,
   height = 72,
   label,

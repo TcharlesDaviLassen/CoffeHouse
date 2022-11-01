@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import axios from "axios";
+import { Environment } from "../components/modais/Auth/AxiosConnect";
 
 type SignInCredentials = {
   email: string;
@@ -60,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 
     try {
-      const response = await axios.get("http://localhost:3000/auth", {
+      const response = await axios.get(`${Environment.URL_BASE}/auth`, {
         headers: {
           Authorization: `Basic ${base64}`,
           "Cache-Control": "no-store",

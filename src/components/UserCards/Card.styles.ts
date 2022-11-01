@@ -4,8 +4,10 @@ export const DivContainer = styled.div`
   width: 100%;
   height: 5.5rem;
   background: ${(props) => props.theme.white};
-  border: 1px solid ${(props) => props.theme["gray-100"]};
+  // border-left: 1px solid ${(props) => props.theme["gray-100"]};
+  border-left: 1px solid black;
   border-radius: 8px;
+  margin-top: 1rem;
 
   strong {
     flex: 1;
@@ -38,5 +40,22 @@ export const Edit = styled.button`
   cursor: pointer;
 
   background: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.white};
+`;
+
+export const Delete = styled.button`
+  width: 3rem;
+  height: 3rem;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background: ${(props) => props.theme.danger};
   color: ${(props) => props.theme.white};
 `;

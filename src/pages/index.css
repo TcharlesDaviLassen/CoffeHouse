@@ -7,9 +7,16 @@ background-size: 6rem;
 height: 3rem;
 text-align: center;
 
-background-color: rgba(238, 231, 228, 0.884);
+background-color: rgba(206, 71, 13, 0.432);
 height: 10rem;
 border-radius: 10px;
 text-align: center;
 padding-top: 30%;
+
+cursor: pointer;
+background-image: linear-gradient( to right, rgb(87, 13, 172), rgb(0, 0, 0), rgb(0, 0, 0), rgb(98, 0, 255) );
+padding-top: 0%;
+margin-right: 2rem;
+font-weight: bold;
+justify-content: space-around;
 }

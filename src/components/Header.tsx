@@ -4,13 +4,15 @@ import { User } from "phosphor-react";
 
 import {
   ContentContainer,
-  SidebarContainer,                   
+  SidebarContainer,
   UserContainer,
   UserData,
   IconUser,
 } from "./Header.styles";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
+
+import { ButtonType } from "./Header.styles";
 
 interface SidebarProps {
   label: string;
@@ -22,16 +24,17 @@ export function Header({ label }: SidebarProps) {
   return (
     <SidebarContainer>
       <ContentContainer>
+        <ButtonType onClick={logout}>Exit</ButtonType>
+        {/* <Button width={50} height={50} label="Exit" onClick={logout} /> */}
         <h1>{label}</h1>
+        <IconUser src="./src/imgs/user.png" alt=""></IconUser>
+        <h2>{user?.name}</h2>
         <UserContainer>
-          <UserData>
-            {/* <User size={32} /> */}
-            <IconUser src="./src/imgs/user.png" alt=""></IconUser>
-            <strong>{user?.name}</strong>
-          </UserData>
-          {/* <Button width={100} height={50} label="Voltar" onClick={logout} /> */}
-          <Link to={"/"}>
-          <a href="">Voltar</a>
+          {/* <UserData> */}
+          {/* <User size={32} /> */}
+          {/* </UserData> */}
+          <Link to={"/menu"}>
+            <Button width={50} height={50} label="Back" />
           </Link>
         </UserContainer>
       </ContentContainer>
